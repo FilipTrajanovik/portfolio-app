@@ -1,0 +1,368 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Contact - Filip Trajanovik{% endblock %}
+
+{% block extra_css %}
+<style>
+/* Contact Page - Black, White & Purple */
+.contact-hero {
+    background: var(--black);
+    padding: 150px 0 80px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.contact-hero::before {
+    content: '';
+    position: absolute;
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, rgba(139, 92, 246, 0.1) 0%, transparent 70%);
+    top: -150px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 50%;
+}
+
+.contact-hero-content {
+    position: relative;
+    z-index: 2;
+}
+
+.contact-label {
+    display: inline-block;
+    background: rgba(139, 92, 246, 0.1);
+    color: var(--purple-primary);
+    padding: 0.5rem 1.2rem;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    border: 1px solid rgba(139, 92, 246, 0.2);
+}
+
+.contact-title {
+    font-size: 4rem;
+    font-weight: 900;
+    color: var(--white);
+    margin-bottom: 1rem;
+    letter-spacing: -2px;
+}
+
+.contact-subtitle {
+    font-size: 1.3rem;
+    color: var(--text-gray);
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+/* Contact Content */
+.contact-section {
+    background: var(--gray-dark);
+    padding: 6rem 0;
+}
+
+.contact-form-container {
+    background: var(--gray);
+    border: 1px solid var(--gray-light);
+    border-radius: 24px;
+    padding: 3rem;
+    margin-bottom: 3rem;
+}
+
+.form-group-custom {
+    margin-bottom: 2rem;
+}
+
+.form-label-custom {
+    color: var(--white);
+    font-weight: 600;
+    margin-bottom: 0.8rem;
+    display: block;
+    font-size: 1rem;
+}
+
+.form-control-custom {
+    width: 100%;
+    background: var(--gray-dark);
+    border: 2px solid var(--gray-light);
+    color: var(--white);
+    padding: 1rem 1.5rem;
+    border-radius: 12px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+.form-control-custom:focus {
+    outline: none;
+    border-color: var(--purple-primary);
+    background: var(--black);
+    box-shadow: 0 0 0 4px rgba(139, 92, 246, 0.1);
+}
+
+.form-control-custom::placeholder {
+    color: var(--text-gray);
+}
+
+textarea.form-control-custom {
+    min-height: 180px;
+    resize: vertical;
+}
+
+.submit-btn-custom {
+    background: var(--purple-primary);
+    color: var(--white);
+    border: none;
+    padding: 1.2rem 3rem;
+    border-radius: 12px;
+    font-weight: 700;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.submit-btn-custom:hover {
+    background: var(--purple-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(139, 92, 246, 0.4);
+}
+
+/* Contact Info Cards */
+.contact-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-bottom: 3rem;
+}
+
+.contact-info-card {
+    background: var(--gray);
+    border: 1px solid var(--gray-light);
+    border-radius: 20px;
+    padding: 2.5rem;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.contact-info-card:hover {
+    border-color: rgba(139, 92, 246, 0.5);
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.contact-card-icon {
+    width: 70px;
+    height: 70px;
+    background: rgba(139, 92, 246, 0.1);
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.5rem;
+    color: var(--purple-primary);
+    font-size: 2rem;
+    border: 2px solid rgba(139, 92, 246, 0.2);
+}
+
+.contact-card-title {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 0.8rem;
+}
+
+.contact-card-text {
+    color: var(--text-gray);
+    font-size: 1rem;
+}
+
+.contact-card-text a {
+    color: var(--purple-primary);
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.3s ease;
+}
+
+.contact-card-text a:hover {
+    color: var(--purple-light);
+}
+
+/* Social Connect */
+.social-connect-section {
+    background: var(--gray);
+    border: 1px solid var(--gray-light);
+    border-radius: 20px;
+    padding: 3rem;
+    text-align: center;
+}
+
+.social-connect-title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 1rem;
+}
+
+.social-connect-text {
+    color: var(--text-gray);
+    font-size: 1.1rem;
+    margin-bottom: 2rem;
+}
+
+.social-links-large {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+}
+
+.social-link-btn {
+    width: 60px;
+    height: 60px;
+    background: var(--gray-dark);
+    border: 2px solid var(--gray-light);
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-gray);
+    font-size: 1.5rem;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.social-link-btn:hover {
+    background: var(--purple-primary);
+    color: var(--white);
+    border-color: var(--purple-primary);
+    transform: translateY(-5px);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .contact-title {
+        font-size: 2.5rem;
+    }
+
+    .contact-form-container {
+        padding: 2rem;
+    }
+
+    .contact-cards {
+        grid-template-columns: 1fr;
+    }
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<!-- Hero -->
+<section class="contact-hero">
+    <div class="container">
+        <div class="contact-hero-content">
+            <span class="contact-label">LET'S CONNECT</span>
+            <h1 class="contact-title">Get In Touch</h1>
+            <p class="contact-subtitle">Have a project in mind? Let's work together to create something amazing</p>
+        </div>
+    </div>
+</section>
+
+<!-- Contact Section -->
+<section class="contact-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto">
+                <!-- Contact Form -->
+                <div class="contact-form-container">
+                    <form method="post" id="contactForm">
+                        {% csrf_token %}
+
+                        <div class="form-group-custom">
+                            <label for="{{ form.name.id_for_label }}" class="form-label-custom">Your Name</label>
+                            <input type="text" name="name" id="{{ form.name.id_for_label }}" class="form-control-custom" placeholder="John Doe" required>
+                        </div>
+
+                        <div class="form-group-custom">
+                            <label for="{{ form.email.id_for_label }}" class="form-label-custom">Your Email</label>
+                            <input type="email" name="email" id="{{ form.email.id_for_label }}" class="form-control-custom" placeholder="john@example.com" required>
+                        </div>
+
+                        <div class="form-group-custom">
+                            <label for="{{ form.subject.id_for_label }}" class="form-label-custom">Subject</label>
+                            <input type="text" name="subject" id="{{ form.subject.id_for_label }}" class="form-control-custom" placeholder="Project Inquiry" required>
+                        </div>
+
+                        <div class="form-group-custom">
+                            <label for="{{ form.message.id_for_label }}" class="form-label-custom">Message</label>
+                            <textarea name="message" id="{{ form.message.id_for_label }}" class="form-control-custom" placeholder="Tell me about your project..." required></textarea>
+                        </div>
+
+                        <button type="submit" class="submit-btn-custom">
+                            <i class="fas fa-paper-plane me-2"></i>Send Message
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Contact Info Cards -->
+                <div class="contact-cards">
+                    {% if profile.email %}
+                    <div class="contact-info-card">
+                        <div class="contact-card-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <h3 class="contact-card-title">Email</h3>
+                        <p class="contact-card-text">
+                            <a href="mailto:{{ profile.email }}">{{ profile.email }}</a>
+                        </p>
+                    </div>
+                    {% endif %}
+
+                    {% if profile.phone %}
+                    <div class="contact-info-card">
+                        <div class="contact-card-icon">
+                            <i class="fas fa-phone"></i>
+                        </div>
+                        <h3 class="contact-card-title">Phone</h3>
+                        <p class="contact-card-text">{{ profile.phone }}</p>
+                    </div>
+                    {% endif %}
+
+                    {% if profile.location %}
+                    <div class="contact-info-card">
+                        <div class="contact-card-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <h3 class="contact-card-title">Location</h3>
+                        <p class="contact-card-text">{{ profile.location }}</p>
+                    </div>
+                    {% endif %}
+                </div>
+
+                <!-- Social Connect -->
+                <div class="social-connect-section">
+                    <h3 class="social-connect-title">Connect With Me</h3>
+                    <p class="social-connect-text">Follow me on social media for updates and insights</p>
+                    <div class="social-links-large">
+                        {% if profile.github_url %}
+                        <a href="{{ profile.github_url }}" target="_blank" class="social-link-btn">
+                            <i class="fab fa-github"></i>
+                        </a>
+                        {% endif %}
+                        {% if profile.linkedin_url %}
+                        <a href="{{ profile.linkedin_url }}" target="_blank" class="social-link-btn">
+                            <i class="fab fa-linkedin"></i>
+                        </a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

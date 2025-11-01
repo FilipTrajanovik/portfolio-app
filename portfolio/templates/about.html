@@ -1,0 +1,522 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}About - Filip Trajanovik{% endblock %}
+
+{% block extra_css %}
+<style>
+/* About Page - Black, White & Purple */
+.about-hero {
+    background: var(--black);
+    padding: 150px 0 100px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.about-hero::before {
+    content: '';
+    position: absolute;
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, rgba(139, 92, 246, 0.1) 0%, transparent 70%);
+    top: -100px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 50%;
+}
+
+.about-hero-content {
+    position: relative;
+    z-index: 2;
+}
+
+.about-label {
+    display: inline-block;
+    background: rgba(139, 92, 246, 0.1);
+    color: var(--purple-primary);
+    padding: 0.5rem 1.2rem;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    border: 1px solid rgba(139, 92, 246, 0.2);
+}
+
+.about-title {
+    font-size: 4rem;
+    font-weight: 900;
+    color: var(--white);
+    margin-bottom: 1rem;
+    letter-spacing: -2px;
+}
+
+.about-subtitle {
+    font-size: 1.3rem;
+    color: var(--text-gray);
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+/* Profile Section */
+.profile-section {
+    background: var(--gray-dark);
+    padding: 100px 0;
+}
+
+.profile-card {
+    background: var(--gray);
+    border: 1px solid var(--gray-light);
+    border-radius: 24px;
+    padding: 3rem;
+    margin-bottom: 3rem;
+}
+
+.profile-image-container {
+    position: relative;
+}
+
+.profile-image {
+    width: 250px;
+    height: 250px;
+    border-radius: 20px;
+    object-fit: cover;
+    border: 3px solid rgba(139, 92, 246, 0.3);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+}
+
+.profile-status-badge {
+    position: absolute;
+    bottom: 15px;
+    right: 15px;
+    background: var(--purple-primary);
+    color: var(--white);
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 4px solid var(--gray);
+    font-size: 1.2rem;
+}
+
+.profile-info h2 {
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: var(--white);
+    margin-bottom: 0.5rem;
+    letter-spacing: -1px;
+}
+
+.profile-role {
+    font-size: 1.3rem;
+    color: var(--purple-primary);
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+}
+
+.profile-bio {
+    color: var(--text-gray);
+    font-size: 1.1rem;
+    line-height: 1.8;
+    margin-bottom: 2rem;
+}
+
+.contact-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+    padding: 1rem;
+    background: var(--gray-dark);
+    border-radius: 12px;
+    border: 1px solid transparent;
+    transition: all 0.3s ease;
+}
+
+.contact-item:hover {
+    border-color: rgba(139, 92, 246, 0.3);
+}
+
+.contact-icon {
+    width: 45px;
+    height: 45px;
+    background: rgba(139, 92, 246, 0.1);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 1rem;
+    color: var(--purple-primary);
+    font-size: 1.1rem;
+}
+
+.contact-item a {
+    color: var(--text-gray);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.contact-item:hover a {
+    color: var(--white);
+}
+
+.social-button {
+    background: var(--purple-primary);
+    color: var(--white);
+    padding: 0.8rem 2rem;
+    border-radius: 12px;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    font-weight: 600;
+    margin-right: 1rem;
+    margin-bottom: 1rem;
+    transition: all 0.3s ease;
+    border: 2px solid var(--purple-primary);
+}
+
+.social-button:hover {
+    background: var(--purple-dark);
+    transform: translateY(-2px);
+    color: var(--white);
+}
+
+.social-button-secondary {
+    background: transparent;
+    border: 2px solid var(--gray-light);
+}
+
+.social-button-secondary:hover {
+    border-color: var(--purple-primary);
+    background: transparent;
+}
+
+/* Education Section */
+.section-block {
+    margin-bottom: 4rem;
+}
+
+.section-header-block {
+    display: flex;
+    align-items: center;
+    margin-bottom: 3rem;
+}
+
+.section-icon-block {
+    width: 60px;
+    height: 60px;
+    background: rgba(139, 92, 246, 0.1);
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 1.5rem;
+    color: var(--purple-primary);
+    font-size: 1.8rem;
+    border: 2px solid rgba(139, 92, 246, 0.2);
+}
+
+.section-title-block {
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: var(--white);
+    margin: 0;
+    letter-spacing: -1px;
+}
+
+.education-item {
+    background: var(--gray);
+    border: 1px solid var(--gray-light);
+    border-left: 4px solid var(--purple-primary);
+    border-radius: 16px;
+    padding: 2rem;
+    margin-bottom: 1.5rem;
+    transition: all 0.3s ease;
+}
+
+.education-item:hover {
+    border-color: var(--purple-primary);
+    transform: translateX(5px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.education-degree {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 0.5rem;
+}
+
+.education-school {
+    font-size: 1.2rem;
+    color: var(--purple-primary);
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.education-field {
+    color: var(--text-gray);
+    margin-bottom: 1rem;
+}
+
+.education-date {
+    display: inline-block;
+    background: rgba(139, 92, 246, 0.1);
+    color: var(--purple-primary);
+    padding: 0.4rem 1rem;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
+
+.education-description {
+    color: var(--text-gray);
+    line-height: 1.7;
+}
+
+/* Certificates Section */
+.cert-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+}
+
+.cert-card {
+    background: var(--gray);
+    border: 1px solid var(--gray-light);
+    border-radius: 16px;
+    padding: 2rem;
+    transition: all 0.3s ease;
+}
+
+.cert-card:hover {
+    border-color: rgba(139, 92, 246, 0.5);
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.cert-icon {
+    width: 50px;
+    height: 50px;
+    background: rgba(139, 92, 246, 0.1);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+    color: var(--purple-primary);
+    font-size: 1.5rem;
+}
+
+.cert-name {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 0.5rem;
+}
+
+.cert-issuer {
+    color: var(--purple-primary);
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
+
+.cert-date {
+    color: var(--text-gray);
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+}
+
+.cert-link {
+    color: var(--purple-primary);
+    text-decoration: none;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    transition: all 0.3s ease;
+}
+
+.cert-link:hover {
+    color: var(--purple-light);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .about-title {
+        font-size: 2.5rem;
+    }
+
+    .profile-card {
+        padding: 2rem;
+        text-align: center;
+    }
+
+    .profile-image {
+        width: 200px;
+        height: 200px;
+        margin-bottom: 2rem;
+    }
+
+    .section-header-block {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .section-icon-block {
+        margin: 0 0 1rem 0;
+    }
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<!-- Hero -->
+<section class="about-hero">
+    <div class="container">
+        <div class="about-hero-content">
+            <span class="about-label">GET TO KNOW ME</span>
+            <h1 class="about-title">About Me</h1>
+            <p class="about-subtitle">Learn more about my journey, skills, and passion for software development</p>
+        </div>
+    </div>
+</section>
+
+<!-- Profile Section -->
+<section class="profile-section">
+    <div class="container">
+        {% if profile %}
+        <div class="profile-card">
+            <div class="row align-items-center">
+                <div class="col-lg-4 text-center mb-4 mb-lg-0">
+                    <div class="profile-image-container d-inline-block position-relative">
+                        {% if profile.profile_image %}
+                        <img src="{{ profile.profile_image.url }}" alt="{{ profile.name }}" class="profile-image">
+                        {% else %}
+                        <img src="{% static 'images/default-profile.png' %}" alt="{{ profile.name }}" class="profile-image">
+                        {% endif %}
+                        <div class="profile-status-badge">
+                            <i class="fas fa-check"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-8">
+                    <div class="profile-info">
+                        <h2>{{ profile.name }}</h2>
+                        <p class="profile-role">{{ profile.title }}</p>
+                        <p class="profile-bio">{{ profile.bio }}</p>
+
+                        <div class="contact-info mb-4">
+                            {% if profile.email %}
+                            <div class="contact-item">
+                                <div class="contact-icon">
+                                    <i class="fas fa-envelope"></i>
+                                </div>
+                                <a href="mailto:{{ profile.email }}">{{ profile.email }}</a>
+                            </div>
+                            {% endif %}
+
+                            {% if profile.phone %}
+                            <div class="contact-item">
+                                <div class="contact-icon">
+                                    <i class="fas fa-phone"></i>
+                                </div>
+                                <span style="color: var(--text-gray);">{{ profile.phone }}</span>
+                            </div>
+                            {% endif %}
+
+                            {% if profile.location %}
+                            <div class="contact-item">
+                                <div class="contact-icon">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                </div>
+                                <span style="color: var(--text-gray);">{{ profile.location }}</span>
+                            </div>
+                            {% endif %}
+                        </div>
+
+                        <div>
+                            {% if profile.github_url %}
+                            <a href="{{ profile.github_url }}" target="_blank" class="social-button">
+                                <i class="fab fa-github me-2"></i>GitHub
+                            </a>
+                            {% endif %}
+
+                            {% if profile.linkedin_url %}
+                            <a href="{{ profile.linkedin_url }}" target="_blank" class="social-button">
+                                <i class="fab fa-linkedin me-2"></i>LinkedIn
+                            </a>
+                            {% endif %}
+
+                            {% if profile.resume_file %}
+                            <a href="{{ profile.resume_file.url }}" class="social-button social-button-secondary" download>
+                                <i class="fas fa-download me-2"></i>Download CV
+                            </a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+
+        <!-- Education -->
+        {% if education %}
+        <div class="section-block">
+            <div class="section-header-block">
+                <div class="section-icon-block">
+                    <i class="fas fa-graduation-cap"></i>
+                </div>
+                <h3 class="section-title-block">Education</h3>
+            </div>
+
+            {% for edu in education %}
+            <div class="education-item">
+                <h4 class="education-degree">{{ edu.degree }}</h4>
+                <p class="education-school">{{ edu.institution }}</p>
+                <p class="education-field">{{ edu.field_of_study }}</p>
+                <span class="education-date">
+                    {{ edu.start_date|date:"Y" }} -
+                    {% if edu.is_current %}Present{% else %}{{ edu.end_date|date:"Y" }}{% endif %}
+                </span>
+                {% if edu.description %}
+                <p class="education-description">{{ edu.description }}</p>
+                {% endif %}
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+
+        <!-- Certificates -->
+        {% if certificates %}
+        <div class="section-block">
+            <div class="section-header-block">
+                <div class="section-icon-block">
+                    <i class="fas fa-certificate"></i>
+                </div>
+                <h3 class="section-title-block">Certifications</h3>
+            </div>
+
+            <div class="cert-grid">
+                {% for cert in certificates %}
+                <div class="cert-card">
+                    <div class="cert-icon">
+                        <i class="fas fa-award"></i>
+                    </div>
+                    <h4 class="cert-name">{{ cert.name }}</h4>
+                    <p class="cert-issuer">{{ cert.issuer }}</p>
+                    <p class="cert-date">Issued: {{ cert.issue_date|date:"M Y" }}</p>
+                    {% if cert.credential_url %}
+                    <a href="{{ cert.credential_url }}" target="_blank" class="cert-link">
+                        View Certificate <i class="fas fa-external-link-alt ms-2"></i>
+                    </a>
+                    {% endif %}
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}

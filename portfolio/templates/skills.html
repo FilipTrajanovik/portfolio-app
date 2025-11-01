@@ -1,0 +1,280 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Skills - Filip Trajanovik{% endblock %}
+
+{% block extra_css %}
+<style>
+/* Skills Page - Black, White & Purple */
+.skills-hero {
+    background: var(--black);
+    padding: 150px 0 80px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.skills-hero::before {
+    content: '';
+    position: absolute;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(139, 92, 246, 0.08) 0%, transparent 70%);
+    top: -250px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 50%;
+}
+
+.skills-hero-content {
+    position: relative;
+    z-index: 2;
+}
+
+.skills-label {
+    display: inline-block;
+    background: rgba(139, 92, 246, 0.1);
+    color: var(--purple-primary);
+    padding: 0.5rem 1.2rem;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    border: 1px solid rgba(139, 92, 246, 0.2);
+}
+
+.skills-title {
+    font-size: 4rem;
+    font-weight: 900;
+    color: var(--white);
+    margin-bottom: 1rem;
+    letter-spacing: -2px;
+}
+
+.skills-subtitle {
+    font-size: 1.3rem;
+    color: var(--text-gray);
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+/* Skills Content */
+.skills-content {
+    background: var(--gray-dark);
+    padding: 6rem 0;
+}
+
+.category-section {
+    margin-bottom: 5rem;
+}
+
+.category-header {
+    background: var(--gray);
+    border: 1px solid var(--gray-light);
+    border-radius: 20px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    display: flex;
+    align-items: center;
+}
+
+.category-icon {
+    width: 70px;
+    height: 70px;
+    background: rgba(139, 92, 246, 0.1);
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 2rem;
+    color: var(--purple-primary);
+    font-size: 2rem;
+    border: 2px solid rgba(139, 92, 246, 0.2);
+}
+
+.category-title {
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: var(--white);
+    margin: 0;
+    letter-spacing: -1px;
+}
+
+.skills-grid-category {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+    gap: 2rem;
+}
+
+.skill-item-bar {
+    background: var(--gray);
+    border: 1px solid var(--gray-light);
+    border-radius: 16px;
+    padding: 2rem;
+    transition: all 0.3s ease;
+}
+
+.skill-item-bar:hover {
+    border-color: rgba(139, 92, 246, 0.5);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.skill-header-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.2rem;
+}
+
+.skill-name-bar {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--white);
+}
+
+.skill-percentage {
+    background: rgba(139, 92, 246, 0.1);
+    color: var(--purple-primary);
+    padding: 0.4rem 1rem;
+    border-radius: 20px;
+    font-weight: 700;
+    font-size: 0.95rem;
+}
+
+.progress-bar-container {
+    width: 100%;
+    height: 12px;
+    background: var(--gray-dark);
+    border-radius: 10px;
+    overflow: hidden;
+    position: relative;
+}
+
+.progress-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--purple-primary) 0%, var(--purple-light) 100%);
+    border-radius: 10px;
+    transition: width 1.5s ease;
+    position: relative;
+    box-shadow: 0 0 15px rgba(139, 92, 246, 0.5);
+}
+
+.progress-bar-fill::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+}
+
+/* Empty State */
+.empty-skills {
+    text-align: center;
+    padding: 6rem 0;
+}
+
+.empty-icon-skills {
+    font-size: 5rem;
+    color: var(--gray-light);
+    margin-bottom: 2rem;
+}
+
+.empty-title-skills {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 1rem;
+}
+
+.empty-text-skills {
+    color: var(--text-gray);
+    font-size: 1.2rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .skills-title {
+        font-size: 2.5rem;
+    }
+
+    .skills-grid-category {
+        grid-template-columns: 1fr;
+    }
+
+    .category-header {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .category-icon {
+        margin-right: 0;
+        margin-bottom: 1.5rem;
+    }
+
+    .category-title {
+        font-size: 2rem;
+    }
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<!-- Hero -->
+<section class="skills-hero">
+    <div class="container">
+        <div class="skills-hero-content">
+            <span class="skills-label">TECHNICAL EXPERTISE</span>
+            <h1 class="skills-title">My Skills</h1>
+            <p class="skills-subtitle">Technologies and tools I use to build amazing projects</p>
+        </div>
+    </div>
+</section>
+
+<!-- Skills Content -->
+<section class="skills-content">
+    <div class="container">
+        {% for category, skills in skills_by_category.items %}
+        {% if skills %}
+        <div class="category-section">
+            <div class="category-header">
+                <div class="category-icon">
+                    <i class="fas fa-layer-group"></i>
+                </div>
+                <h2 class="category-title">{{ category }}</h2>
+            </div>
+
+            <div class="skills-grid-category">
+                {% for skill in skills %}
+                <div class="skill-item-bar">
+                    <div class="skill-header-bar">
+                        <h3 class="skill-name-bar">{{ skill.name }}</h3>
+                        <span class="skill-percentage">{{ skill.proficiency }}%</span>
+                    </div>
+                    <div class="progress-bar-container">
+                        <div class="progress-bar-fill" style="width: {{ skill.proficiency }}%;"></div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+        {% empty %}
+        <div class="empty-skills">
+            <div class="empty-icon-skills">
+                <i class="fas fa-cogs"></i>
+            </div>
+            <h3 class="empty-title-skills">No Skills Added Yet</h3>
+            <p class="empty-text-skills">Check back later for updates</p>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}

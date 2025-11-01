@@ -1,0 +1,385 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Experience - Filip Trajanovik{% endblock %}
+
+{% block extra_css %}
+<style>
+/* Experience Page - Black, White & Purple */
+.experience-hero {
+    background: var(--black);
+    padding: 150px 0 80px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.experience-hero::before {
+    content: '';
+    position: absolute;
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, rgba(139, 92, 246, 0.08) 0%, transparent 70%);
+    top: -200px;
+    right: 20%;
+    border-radius: 50%;
+}
+
+.experience-hero-content {
+    position: relative;
+    z-index: 2;
+}
+
+.experience-label {
+    display: inline-block;
+    background: rgba(139, 92, 246, 0.1);
+    color: var(--purple-primary);
+    padding: 0.5rem 1.2rem;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    border: 1px solid rgba(139, 92, 246, 0.2);
+}
+
+.experience-title {
+    font-size: 4rem;
+    font-weight: 900;
+    color: var(--white);
+    margin-bottom: 1rem;
+    letter-spacing: -2px;
+}
+
+.experience-subtitle {
+    font-size: 1.3rem;
+    color: var(--text-gray);
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+/* Timeline Section */
+.timeline-section {
+    background: var(--gray-dark);
+    padding: 6rem 0;
+}
+
+.timeline-wrapper {
+    position: relative;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.timeline-line {
+    position: absolute;
+    left: 30px;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+    background: linear-gradient(180deg, var(--purple-primary) 0%, rgba(139, 92, 246, 0.2) 100%);
+}
+
+.timeline-item {
+    position: relative;
+    padding-left: 80px;
+    margin-bottom: 4rem;
+}
+
+.timeline-dot {
+    position: absolute;
+    left: 18px;
+    top: 30px;
+    width: 27px;
+    height: 27px;
+    background: var(--purple-primary);
+    border-radius: 50%;
+    border: 5px solid var(--gray-dark);
+    box-shadow: 0 0 0 4px rgba(139, 92, 246, 0.2);
+    z-index: 2;
+}
+
+.timeline-card {
+    background: var(--gray);
+    border: 1px solid var(--gray-light);
+    border-radius: 20px;
+    padding: 2.5rem;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.timeline-card::before {
+    content: '';
+    position: absolute;
+    left: -10px;
+    top: 35px;
+    width: 0;
+    height: 0;
+    border-top: 10px solid transparent;
+    border-bottom: 10px solid transparent;
+    border-right: 10px solid var(--gray-light);
+}
+
+.timeline-card:hover {
+    border-color: rgba(139, 92, 246, 0.5);
+    transform: translateX(10px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+}
+
+.timeline-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: start;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.timeline-info h3 {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 0.5rem;
+}
+
+.timeline-company {
+    font-size: 1.3rem;
+    color: var(--purple-primary);
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.timeline-location {
+    color: var(--text-gray);
+    font-size: 0.95rem;
+    display: flex;
+    align-items: center;
+}
+
+.timeline-location i {
+    margin-right: 0.5rem;
+}
+
+.timeline-date {
+    background: rgba(139, 92, 246, 0.1);
+    color: var(--purple-primary);
+    padding: 0.6rem 1.2rem;
+    border-radius: 20px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    border: 1px solid rgba(139, 92, 246, 0.2);
+    white-space: nowrap;
+}
+
+.timeline-description {
+    color: var(--text-gray);
+    line-height: 1.8;
+    margin-bottom: 1.5rem;
+    font-size: 1.05rem;
+}
+
+.achievements-section {
+    margin-bottom: 1.5rem;
+}
+
+.achievements-title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+}
+
+.achievements-title i {
+    color: var(--purple-primary);
+    margin-right: 0.8rem;
+}
+
+.achievement-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.achievement-item {
+    color: var(--text-gray);
+    padding: 0.8rem 0;
+    padding-left: 1.8rem;
+    position: relative;
+    line-height: 1.7;
+}
+
+.achievement-item::before {
+    content: '▹';
+    position: absolute;
+    left: 0;
+    color: var(--purple-primary);
+    font-size: 1.2rem;
+}
+
+.tech-section-timeline {
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--gray-light);
+}
+
+.tech-section-title {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--text-gray);
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.tech-list-timeline {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+}
+
+.tech-badge-timeline {
+    background: var(--gray-dark);
+    color: var(--text-gray);
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    border: 1px solid var(--gray-light);
+}
+
+/* Empty State */
+.empty-experience {
+    text-align: center;
+    padding: 6rem 0;
+}
+
+.empty-icon-exp {
+    font-size: 5rem;
+    color: var(--gray-light);
+    margin-bottom: 2rem;
+}
+
+.empty-title-exp {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 1rem;
+}
+
+.empty-text-exp {
+    color: var(--text-gray);
+    font-size: 1.2rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .experience-title {
+        font-size: 2.5rem;
+    }
+
+    .timeline-item {
+        padding-left: 60px;
+    }
+
+    .timeline-line {
+        left: 20px;
+    }
+
+    .timeline-dot {
+        left: 11px;
+    }
+
+    .timeline-card {
+        padding: 1.5rem;
+    }
+
+    .timeline-header {
+        flex-direction: column;
+    }
+
+    .timeline-info h3 {
+        font-size: 1.5rem;
+    }
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<!-- Hero -->
+<section class="experience-hero">
+    <div class="container">
+        <div class="experience-hero-content">
+            <span class="experience-label">MY JOURNEY</span>
+            <h1 class="experience-title">Work Experience</h1>
+            <p class="experience-subtitle">Professional experience and projects I've worked on</p>
+        </div>
+    </div>
+</section>
+
+<!-- Timeline -->
+<section class="timeline-section">
+    <div class="container">
+        <div class="timeline-wrapper">
+            <div class="timeline-line"></div>
+
+            {% for exp in experiences %}
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-card">
+                    <div class="timeline-header">
+                        <div class="timeline-info">
+                            <h3>{{ exp.position }}</h3>
+                            <p class="timeline-company">{{ exp.company }}</p>
+                            {% if exp.location %}
+                            <p class="timeline-location">
+                                <i class="fas fa-map-marker-alt"></i>{{ exp.location }}
+                            </p>
+                            {% endif %}
+                        </div>
+                        <div class="timeline-date">
+                            <i class="fas fa-calendar-alt me-2"></i>
+                            {{ exp.start_date|date:"M Y" }} -
+                            {% if exp.is_current %}Present{% else %}{{ exp.end_date|date:"M Y" }}{% endif %}
+                        </div>
+                    </div>
+
+                    <div class="timeline-description">
+                        {{ exp.description|linebreaks }}
+                    </div>
+
+                    {% if exp.get_achievements_list %}
+                    <div class="achievements-section">
+                        <h4 class="achievements-title">
+                            <i class="fas fa-trophy"></i>Key Achievements
+                        </h4>
+                        <ul class="achievement-list">
+                            {% for achievement in exp.get_achievements_list %}
+                            <li class="achievement-item">{{ achievement }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    {% endif %}
+
+                    {% if exp.get_tech_list %}
+                    <div class="tech-section-timeline">
+                        <p class="tech-section-title">Technologies</p>
+                        <div class="tech-list-timeline">
+                            {% for tech in exp.get_tech_list %}
+                            <span class="tech-badge-timeline">{{ tech }}</span>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+            {% empty %}
+            <div class="empty-experience">
+                <div class="empty-icon-exp">
+                    <i class="fas fa-briefcase"></i>
+                </div>
+                <h3 class="empty-title-exp">No Experience Added Yet</h3>
+                <p class="empty-text-exp">Check back later for updates</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %}

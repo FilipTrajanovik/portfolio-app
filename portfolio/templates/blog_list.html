@@ -1,0 +1,96 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Blog - Filip Trajanovik{% endblock %}
+
+{% block main_class %}pt-5 mt-5{% endblock %}
+
+{% block content %}
+    <section class="py-5">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h1 class="display-4 fw-bold">Blog</h1>
+                <p class="lead text-muted">Thoughts, tutorials, and insights</p>
+            </div>
+
+            <div class="row g-4">
+                {% for post in posts %}
+                    <div class="col-lg-4 col-md-6">
+                        <article class="card h-100 shadow-sm hover-card">
+                            {% if post.featured_image %}
+                                <img src="{{ post.featured_image.url }}" class="card-img-top" alt="{{ post.title }}"
+                                     style="height: 220px; object-fit: cover;">
+                            {% else %}
+                                <div class="card-img-top bg-gradient d-flex align-items-center justify-content-center"
+                                     style="height: 220px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+                                    <i class="fas fa-blog fa-4x text-white"></i>
+                                </div>
+                            {% endif %}
+
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between align-items-center mb-3">
+                                    <small class="text-muted">
+                                        <i class="fas fa-calendar me-1"></i>
+                                        {{ post.created_at|date:"M d, Y" }}
+                                    </small>
+                                    <small class="text-muted">
+                                        <i class="fas fa-eye me-1"></i>
+                                        {{ post.views }} views
+                                    </small>
+                                </div>
+
+                                <h5 class="card-title">{{ post.title }}</h5>
+                                <p class="card-text text-muted">{{ post.excerpt }}</p>
+
+                                {% if post.get_tags_list %}
+                                    <div class="mb-3">
+                                        {% for tag in post.get_tags_list|slice:":3" %}
+                                            <span class="badge bg-light text-dark me-1">{{ tag }}</span>
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                            </div>
+
+                            <div class="card-footer bg-transparent border-0">
+                                <a href="{% url 'blog_detail' post.slug %}" class="btn btn-sm btn-primary">
+                                    Read More <i class="fas fa-arrow-right"></i>
+                                </a>
+                            </div>
+                        </article>
+                    </div>
+                {% empty %}
+                    <div class="col-12 text-center py-5">
+                        <i class="fas fa-blog fa-5x text-muted mb-3"></i>
+                        <h4 class="text-muted">No blog posts yet</h4>
+                        <p class="text-muted">Check back later for new content!</p>
+                    </div>
+                {% endfor %}
+            </div>
+
+            <!-- Pagination -->
+            {% if posts.has_other_pages %}
+                <nav aria-label="Blog pagination" class="mt-5">
+                    <ul class="pagination justify-content-center">
+                        {% if posts.has_previous %}
+                            <li class="page-item">
+                                <a class="page-link" href="?page={{ posts.previous_page_number }}">Previous</a>
+                            </li>
+                        {% endif %}
+
+                        {% for num in posts.paginator.page_range %}
+                            <li class="page-item {% if posts.number == num %}active{% endif %}">
+                                <a class="page-link" href="?page={{ num }}">{{ num }}</a>
+                            </li>
+                        {% endfor %}
+
+                        {% if posts.has_next %}
+                            <li class="page-item">
+                                <a class="page-link" href="?page={{ posts.next_page_number }}">Next</a>
+                            </li>
+                        {% endif %}
+                    </ul>
+                </nav>
+            {% endif %}
+        </div>
+    </section>
+{% endblock %}
