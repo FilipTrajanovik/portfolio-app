@@ -143,12 +143,186 @@
     display: inline-block;
 }
 
-.hero-profile-image {
-    width: 100%;
-    max-width: 450px;
+/* Animated Avatar */
+.animated-avatar {
+    width: 450px;
+    height: 450px;
+    position: relative;
     border-radius: 20px;
     border: 3px solid rgba(139, 92, 246, 0.3);
     box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+    overflow: hidden;
+}
+
+/* Avatar Face */
+.avatar-face {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 180px;
+    height: 180px;
+    background: linear-gradient(135deg, var(--purple-primary) 0%, var(--purple-light) 100%);
+    border-radius: 50%;
+    box-shadow: 0 10px 40px rgba(139, 92, 246, 0.6);
+    animation: pulse 3s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { transform: translate(-50%, -50%) scale(1); }
+    50% { transform: translate(-50%, -50%) scale(1.05); }
+}
+
+/* Avatar Eyes */
+.avatar-eyes {
+    position: absolute;
+    top: 45%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    gap: 40px;
+}
+
+.eye {
+    width: 20px;
+    height: 20px;
+    background: var(--white);
+    border-radius: 50%;
+    position: relative;
+    animation: blink 4s infinite;
+}
+
+.eye::after {
+    content: '';
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background: var(--black);
+    border-radius: 50%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    animation: look 5s infinite;
+}
+
+@keyframes blink {
+    0%, 90%, 100% { height: 20px; }
+    95% { height: 2px; }
+}
+
+@keyframes look {
+    0%, 40%, 100% { transform: translate(-50%, -50%); }
+    45%, 85% { transform: translate(-30%, -50%); }
+}
+
+/* Avatar Smile */
+.avatar-smile {
+    position: absolute;
+    bottom: 35%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 50px;
+    height: 25px;
+    border: 3px solid var(--white);
+    border-top: none;
+    border-radius: 0 0 50px 50px;
+}
+
+/* Floating Particles */
+.particle {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    background: var(--purple-primary);
+    border-radius: 50%;
+    animation: particle-float 6s infinite ease-in-out;
+    opacity: 0.6;
+}
+
+.particle:nth-child(1) {
+    top: 20%;
+    left: 15%;
+    animation-delay: 0s;
+}
+
+.particle:nth-child(2) {
+    top: 40%;
+    left: 80%;
+    animation-delay: 1s;
+}
+
+.particle:nth-child(3) {
+    top: 60%;
+    left: 10%;
+    animation-delay: 2s;
+}
+
+.particle:nth-child(4) {
+    top: 80%;
+    left: 70%;
+    animation-delay: 1.5s;
+}
+
+.particle:nth-child(5) {
+    top: 30%;
+    right: 20%;
+    animation-delay: 0.5s;
+}
+
+.particle:nth-child(6) {
+    top: 70%;
+    right: 15%;
+    animation-delay: 2.5s;
+}
+
+@keyframes particle-float {
+    0%, 100% { transform: translateY(0) scale(1); opacity: 0.6; }
+    50% { transform: translateY(-30px) scale(1.2); opacity: 1; }
+}
+
+/* Code Brackets Animation */
+.code-bracket {
+    position: absolute;
+    font-size: 4rem;
+    font-weight: 900;
+    color: rgba(139, 92, 246, 0.2);
+    font-family: 'Courier New', monospace;
+}
+
+.bracket-left {
+    top: 10%;
+    left: 10%;
+    animation: bracket-pulse 3s infinite;
+}
+
+.bracket-right {
+    bottom: 10%;
+    right: 10%;
+    animation: bracket-pulse 3s infinite 0.5s;
+}
+
+@keyframes bracket-pulse {
+    0%, 100% { opacity: 0.2; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(1.1); }
+}
+
+/* Rotating Ring */
+.rotating-ring {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 250px;
+    height: 250px;
+    border: 3px dashed rgba(139, 92, 246, 0.3);
+    border-radius: 50%;
+    animation: rotate 20s linear infinite;
+}
+
+@keyframes rotate {
+    from { transform: translate(-50%, -50%) rotate(0deg); }
+    to { transform: translate(-50%, -50%) rotate(360deg); }
 }
 
 .image-badge {
@@ -161,6 +335,12 @@
     border-radius: 15px;
     font-weight: 700;
     box-shadow: 0 10px 30px rgba(139, 92, 246, 0.4);
+    animation: badge-bounce 2s ease-in-out infinite;
+}
+
+@keyframes badge-bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
 }
 
 /* Projects Section */
@@ -415,6 +595,21 @@
         width: 100%;
         justify-content: center;
     }
+
+    .animated-avatar {
+        width: 300px;
+        height: 300px;
+    }
+
+    .avatar-face {
+        width: 120px;
+        height: 120px;
+    }
+
+    .rotating-ring {
+        width: 180px;
+        height: 180px;
+    }
 }
 </style>
 {% endblock %}
@@ -443,11 +638,33 @@
             </div>
             <div class="col-lg-6 hero-image-container mt-5 mt-lg-0 text-center">
                 <div class="hero-image-wrapper">
-                    {% if profile.profile_image %}
-                    <img src="{{ profile.profile_image.url }}" alt="{{ profile.name }}" class="hero-profile-image">
-                    {% else %}
-                    <img src="{% static 'images/default-profile.png' %}" alt="Profile" class="hero-profile-image">
-                    {% endif %}
+                    <!-- Animated Avatar -->
+                    <div class="animated-avatar">
+                        <!-- Code Brackets -->
+                        <div class="code-bracket bracket-left">&lt;/&gt;</div>
+                        <div class="code-bracket bracket-right">&lt;/&gt;</div>
+
+                        <!-- Rotating Ring -->
+                        <div class="rotating-ring"></div>
+
+                        <!-- Avatar Face -->
+                        <div class="avatar-face">
+                            <div class="avatar-eyes">
+                                <div class="eye"></div>
+                                <div class="eye"></div>
+                            </div>
+                            <div class="avatar-smile"></div>
+                        </div>
+
+                        <!-- Floating Particles -->
+                        <div class="particle"></div>
+                        <div class="particle"></div>
+                        <div class="particle"></div>
+                        <div class="particle"></div>
+                        <div class="particle"></div>
+                        <div class="particle"></div>
+                    </div>
+
                     <div class="image-badge">
                         <div>Available for work</div>
                     </div>

@@ -361,9 +361,7 @@
 <!-- Project Content -->
 <section class="project-content-section">
     <div class="container">
-        {% if project.image %}
-        <img src="{{ project.image.url }}" alt="{{ project.title }}" class="project-main-image">
-        {% endif %}
+
 
         <!-- Technologies -->
         <div class="content-block">
@@ -408,13 +406,6 @@
             {% for related in related_projects %}
             <div class="col-lg-4 col-md-6">
                 <div class="related-card">
-                    {% if related.image %}
-                    <img src="{{ related.image.url }}" class="related-card-img" alt="{{ related.title }}">
-                    {% else %}
-                    <div class="related-card-img" style="background: linear-gradient(135deg, var(--gray-light) 0%, var(--gray) 100%); display: flex; align-items: center; justify-content: center;">
-                        <i class="fas fa-code" style="font-size: 2rem; color: var(--gray-light);"></i>
-                    </div>
-                    {% endif %}
 
                     <div class="related-card-body">
                         <h4 class="related-card-title">{{ related.title }}</h4>
