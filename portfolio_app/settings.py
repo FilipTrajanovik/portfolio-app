@@ -77,9 +77,9 @@ DATABASES = {
     )
 }
 
-# DATABASES['default']['OPTIONS'] = {
-#     'options': '-c search_path=portfolio,public'
-# }
+DATABASES['default']['OPTIONS'] = {
+    'options': '-c search_path=portfolio,public'
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
